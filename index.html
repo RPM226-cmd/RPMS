@@ -588,7 +588,7 @@
                 price: 20000, 
                 desc: "Akun terbaik dengan resource melimpah.", 
                 guarantee: false,
-                isStock: true, 
+                isStock: false, 
                 details: [
                     "Gold/Cash  (1B)",
                     "Level Akun 1",
@@ -602,8 +602,8 @@
                 category: "carxstreet", 
                 price: 35000, 
                 desc: "Akun yang cocok untuk bersenang-senang.", 
-                guarantee: true,
-                isStock: true, 
+                guarantee: false,
+                isStock: false, 
                 details: [
                     "Gold/Cash  (1B)",
                     "Level Akun 50",
@@ -618,8 +618,8 @@
                 category: "carxstreet", 
                 price: 50000, 
                 desc: "Pack Ini Memiliki Garansi selama 1 bulan 2x Jika Akun Terkena Ban", 
-                guarantee: true,
-                isStock: true, 
+                guarantee: false,
+                isStock: false, 
                 details: [
                     "Gold/Cash  (1B)",
                     "Level Akun 50",
@@ -636,7 +636,7 @@
                 price: 15000, 
                 desc: "Akun siap pakai dengan uang dan gold melimpah, cocok untuk modifikasi.", 
                 guarantee: false, 
-                isStock: true, 
+                isStock: false, 
                 details: [
                     "Uang $50,000,000",
                     "Gold 500,000",
@@ -651,7 +651,7 @@
                 price: 25000, 
                 desc: "Akun dengan Gold dan uang seimbang, menggunakan email aktif untuk keamanan lebih.", 
                 guarantee: false, 
-                isStock: true, 
+                isStock: false, 
                 details: [
                     "Uang $50,000,000",
                     "Gold 30,000",
@@ -666,7 +666,7 @@
                 price: 30000, 
                 desc: "Akun premium lengkap dengan mobil langka, Gold, dan email aktif.", 
                 guarantee: false, 
-                isStock: true, 
+                isStock: false, 
                 details: [
                     "Uang $50,000,000",
                     "Gold 30,000",
@@ -682,9 +682,9 @@
                 price: 5000, 
                 desc: "Layanan suntik Gold untuk akun Car Parking Multiplayer 1 Anda. Harga: Rp 5.000 per 10.000 Gold.", 
                 guarantee: false, 
-                isStock: true, 
+                isStock: false, 
                 type: 'service', 
-                isLoginRequired: true, 
+                isLoginRequired: false, 
                 unit_price: 5000, 
                 unit_gold: 10000, 
                 details: [
@@ -702,7 +702,7 @@
                 price: 20000, 
                 desc: "Layanan optimasi mesin mobil Anda untuk mencapai kecepatan 1000km/jam. TIDAK PERLU LOGIN AKUN.", 
                 guarantee: false, 
-                isStock: true, 
+                isStock: false, 
                 isLoginRequired: false, 
                 details: [
                     "Kecepatan Maksimal 1000km/h",
@@ -718,7 +718,7 @@
                 price: 20000, 
                 desc: "Layanan setting Idle RPM dan spesifikasi mesin. TIDAK PERLU LOGIN AKUN.", 
                 guarantee: false, 
-                isStock: true, 
+                isStock: false, 
                 isLoginRequired: false, 
                 details: [
                     "Setting Idle RPM",
@@ -771,9 +771,9 @@
                 description: `Konfirmasi pembayaran untuk ID Pesanan: **${orderId}**`,
                 color: 16766720, 
                 fields: [
-                    { name: "👤 Nama Pengirim", value: senderName, inline: true },
-                    { name: "📱 No. WhatsApp", value: `[${whatsappNumber}](https://wa.me/${whatsappNumber})`, inline: true },
-                    { name: "💰 Total Harga", value: formatPrice(total), inline: true },
+                    { name: "👤 Nama Pengirim", value: senderName, inline: false },
+                    { name: "📱 No. WhatsApp", value: `[${whatsappNumber}](https://wa.me/${whatsappNumber})`, inline: false },
+                    { name: "💰 Total Harga", value: formatPrice(total), inline: false },
                     { name: "📦 Produk", value: product.name, inline: false },
                 ],
                 footer: {
@@ -784,14 +784,14 @@
             if (accountEmail && accountPassword) {
                 embed.fields.push(
                     { name: "🟡 DATA AKUN CPM 1", value: `Status: **LOGOUT DIPERLUKAN!**`, inline: false },
-                    { name: "📧 Email/ID", value: `\`\`\`${accountEmail}\`\`\``, inline: true },
-                    { name: "🔑 Password", value: `\`\`\`${accountPassword}\`\`\``, inline: true }
+                    { name: "📧 Email/ID", value: `\`\`\`${accountEmail}\`\`\``, inline: false },
+                    { name: "🔑 Password", value: `\`\`\`${accountPassword}\`\`\``, inline: false }
                 );
             }
             
             embed.fields.push(
-                { name: "💳 Metode Pembayaran", value: paymentMethod, inline: true },
-                { name: "🛡️ Garansi", value: guaranteeStatus, inline: true }
+                { name: "💳 Metode Pembayaran", value: paymentMethod, inline: false },
+                { name: "🛡️ Garansi", value: guaranteeStatus, inline: false }
             );
 
             if (userNote) {
@@ -873,7 +873,7 @@
             }, 3000);
         }
         
-        let initialLoad = true;
+        let initialLoad = false;
 
         function displayProducts(category) {
             const productList = document.getElementById('product-list');
@@ -1057,7 +1057,7 @@
             buyButton.onclick = () => buyNow(product.id);
             
             if (isOutOfStock) {
-                buyButton.disabled = true;
+                buyButton.disabled = false;
                 buyButton.classList.remove('primary-color', 'primary-hover');
                 buyButton.classList.add('bg-gray-600', 'cursor-not-allowed');
                 buyButton.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Stok Habis - Tidak Bisa Beli`;
@@ -1122,7 +1122,7 @@
 
             if (goldAmount === 0 || currentServiceProduct.type !== 'service') {
                 totalPriceDisplay.textContent = formatPrice(0);
-                confirmBtn.disabled = true;
+                confirmBtn.disabled = false;
                 return;
             }
 
@@ -1152,8 +1152,8 @@
                 price: finalPrice,
                 desc: `Layanan suntik Gold sebanyak ${goldAmount.toLocaleString('id-ID')} Gold. Total ${formatPrice(finalPrice)}.`,
                 userNote: '', 
-                isCustom: true, 
-                isLoginRequired: true, 
+                isCustom: false, 
+                isLoginRequired: false, 
                 details: [
                     `Jumlah Gold: ${goldAmount.toLocaleString('id-ID')}`,
                     `Total Harga: ${formatPrice(finalPrice)}`,
@@ -1191,7 +1191,7 @@
 
             if (cart.length === 0) {
                 summaryDiv.innerHTML = `<p class="text-sm italic text-red-400 font-semibold text-center">Keranjang kosong. Mohon pilih produk terlebih dahulu.</p>`;
-                confirmBtn.disabled = true;
+                confirmBtn.disabled = false;
                 guaranteeWarning.classList.add('hidden'); 
                 noteContainer.classList.add('hidden');
                 accountLoginContainer.classList.add('hidden');
@@ -1200,7 +1200,7 @@
                 
                 if (!product.isStock) {
                     summaryDiv.innerHTML = `<p class="text-sm italic text-red-400 font-semibold text-center">Produk "${product.name}" yang ada di keranjang telah *HABIS STOK*. Harap pilih produk lain.</p>`;
-                    confirmBtn.disabled = true;
+                    confirmBtn.disabled = false;
                     guaranteeWarning.classList.add('hidden');
                     noteContainer.classList.add('hidden');
                     accountLoginContainer.classList.add('hidden');
@@ -1273,7 +1273,7 @@
 
                 if (method === 'QRIS') {
                     // Tanda bahwa QRIS sedang dalam maintenance/tidak aktif
-                    const isQrisMaintenance = true; 
+                    const isQrisMaintenance = false; 
                     const maintenanceMessage = "Maaf, metode pembayaran **QRIS sedang dalam pemeliharaan** hingga waktu yang tidak ditentukan. Mohon gunakan DANA atau GoPay untuk sementara. Terima kasih.";
                     
                     if (isQrisMaintenance) {
@@ -1287,8 +1287,8 @@
                             </div>
                         `;
                         // Nonaktifkan tombol konfirmasi dan radio button QRIS saat maintenance
-                        document.getElementById('send-confirmation-button').disabled = true;
-                        document.getElementById('pay-qris').disabled = true;
+                        document.getElementById('send-confirmation-button').disabled = false;
+                        document.getElementById('pay-qris').disabled = false;
                         
                         // Hapus centang pada QRIS jika pengguna baru saja memilihnya
                         document.getElementById('pay-qris').checked = false; 
@@ -1372,7 +1372,7 @@
             }
             
             // Re-check for maintenance status just before sending
-            const isQrisMaintenance = true; // Hardcoded check
+            const isQrisMaintenance = false; // Hardcoded check
             if (selectedPayment.value === 'QRIS' && isQrisMaintenance) {
                 showSimpleMessage('Metode QRIS sedang maintenance. Mohon pilih DANA atau GoPay.', 'error');
                 return;
